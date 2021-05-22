@@ -1,0 +1,38 @@
+{% extends './model.html' %}
+{% load bootstrap %}
+{% block content %}
+{% block estilo %}
+<style>
+    body {
+        background-color: bisque;
+    }
+    .card {
+        box-shadow: 10px 10px 10px;
+    }
+    .card-text {
+        font-size: 20px;
+    }
+</style>
+{% endblock %}
+<div class="container">
+<h1 class="text-center">To do App Django</h1>
+<form action="" method="POST"> {% csrf_token %}
+    {{ form|bootstrap }}
+    <button class="btn btn-success" type="submit">Enviar</button>
+</form>
+{% for conteudo in conteudos %}
+<!-- <p>{{ conteudo.conteudo }} <br /> {{ conteudo.data }} </p> -->
+<div class="card mt-5">
+    <h6 class="card-header">Tarefa | {{ conteudo.data }}</h6>
+    <div class="card-body">
+        <p class="card-text">{{ conteudo.conteudo }}</p>
+    <div class="card-footer">
+    <form action="/tarefas/delete/{{ conteudo.id }}" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-danger" type="submit">Delete</button>
+    </form>
+</div>
+</div>
+</div>
+{% endfor %}
+{% endblock %}
